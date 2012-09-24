@@ -8,6 +8,7 @@ import org.spout.api.command.annotated.CommandPermissions;
 import org.spout.api.entity.Player;
 import org.spout.api.geo.discrete.Point;
 import org.spout.api.math.Vector3;
+import org.spout.droplet.border.BorderConfiguration;
 import org.spout.droplet.border.BorderConfiguration.BorderType;
 
 public class BorderCommands {
@@ -35,8 +36,8 @@ public class BorderCommands {
 						double radius = args.getDouble(1);
 						BorderType type = BorderType.valueOf(args.getString(2).toUpperCase());
 						Point center = p.getTransform().getPosition();
-						BorderConfiguration.CENTER.setValue((Vector3) center);
-						BorderConfiguration.BORDER_TYPE.setValue(type);
+						BorderConfiguration.setCenter(center);
+						BorderConfiguration.setBorderType(type);
 						BorderConfiguration.RADIUS.setValue(radius);
 						source.sendMessage(ChatStyle.DARK_GREEN, "Border set successfully.");
 						sendinfo(source);
@@ -55,6 +56,6 @@ public class BorderCommands {
 
 	private void sendinfo(CommandSource source) {
 		source.sendMessage(ChatStyle.YELLOW, "Border: ", ChatStyle.WHITE, (BorderConfiguration.ENABLED.getBoolean() ? "enabled" : "disabled"));
-		source.sendMessage(ChatStyle.YELLOW, "Radius: ", ChatStyle.WHITE, BorderConfiguration.RADIUS.getInt(), ChatStyle.YELLOW, " Type: ", ChatStyle.WHITE, BorderConfiguration.BORDER_TYPE.getValue().toString().toLowerCase());
+		source.sendMessage(ChatStyle.YELLOW, "Radius: ", ChatStyle.WHITE, BorderConfiguration.RADIUS.getInt(), ChatStyle.YELLOW, " Type: ", ChatStyle.WHITE, BorderConfiguration.getBorderType().toString().toLowerCase());
 	}
 }

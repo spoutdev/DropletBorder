@@ -12,8 +12,37 @@ import org.spout.api.util.config.yaml.YamlConfiguration;
 public class BorderConfiguration extends ConfigurationHolderConfiguration {
 	public static final ConfigurationHolder ENABLED = new ConfigurationHolder(false, "enabled");
 	public static final ConfigurationHolder RADIUS = new ConfigurationHolder(-1d, "radius");
-	public static final ConfigurationHolder BORDER_TYPE = new ConfigurationHolder(BorderType.SQUARE, "border-type");
-	public static final ConfigurationHolder CENTER = new ConfigurationHolder(Point.ZERO, "center");
+	private static final ConfigurationHolder BORDER_TYPE = new ConfigurationHolder("SQUARE", "border-type");
+	private static final ConfigurationHolder CENTER_X = new ConfigurationHolder(0d, "center-x");
+	private static final ConfigurationHolder CENTER_Z = new ConfigurationHolder(0d, "center-z");
+	private static Vector3 center = null;
+	private static BorderType borderType = null;
+	
+	
+	public static BorderType getBorderType() {
+		if (borderType == null) {
+			borderType = BorderType.valueOf(BORDER_TYPE.getString());
+		}
+		return borderType;
+	}
+
+	public static void setBorderType(BorderType borderType) {
+		BORDER_TYPE.setValue(borderType.toString());
+		BorderConfiguration.borderType = borderType;
+	}
+
+	public static Vector3 getCenter() {
+		if (center == null) {
+			center = new Vector3(CENTER_X.getDouble(), 0, CENTER_Z.getDouble());
+		}
+		return center;
+	}
+	
+	public static void setCenter(Vector3 center) {
+		CENTER_X.setValue(center.getX());
+		CENTER_Z.setValue(center.getZ());
+		center = new Vector3(center);
+	}
 	
 	public static enum BorderType {
 		CIRCLE, SQUARE;

@@ -7,9 +7,12 @@ import org.spout.api.command.CommandRegistrationsFactory;
 import org.spout.api.command.annotated.AnnotatedCommandRegistrationFactory;
 import org.spout.api.command.annotated.SimpleAnnotatedCommandExecutorFactory;
 import org.spout.api.command.annotated.SimpleInjector;
+import org.spout.api.event.EventHandler;
+import org.spout.api.event.Listener;
+import org.spout.api.event.player.PlayerJoinEvent;
 import org.spout.api.plugin.CommonPlugin;
 
-public class DropletBorder extends CommonPlugin {
+public class DropletBorder extends CommonPlugin implements Listener {
 	private BorderConfiguration config;
 
 	@Override
@@ -19,7 +22,7 @@ public class DropletBorder extends CommonPlugin {
 		config.load();
 		CommandRegistrationsFactory<Class<?>> commandRegFactory = new AnnotatedCommandRegistrationFactory(new SimpleInjector(this), new SimpleAnnotatedCommandExecutorFactory());
 		getEngine().getRootCommand().addSubCommands(this, BorderCommands.class, commandRegFactory);
-		getEngine().getEventManager().registerEvents(new BorderListener(), this);
+		getEngine().getEventManager().registerEvents(this, this);
 		log("DropletBorder enabled");
 	}
 
@@ -36,6 +39,11 @@ public class DropletBorder extends CommonPlugin {
 	
 	public void log(Level level, String text) {
 		getLogger().log(level, text);
+	}
+	
+	@EventHandler
+	public void onPlayerJoin(PlayerJoinEvent event) {
+		event.getPlayer().add(BorderComponent.class);
 	}
 
 }
