@@ -1,0 +1,33 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>org.spout.droplet</groupId>
+  <artifactId>dropletborder</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <name>DropletBorder</name>
+  <description>World border "Droplet" plugin for the Spout platform to demonstrate the usage of map and player limiting using the scheduler.</description>
+  <build>
+    <sourceDirectory>src</sourceDirectory>
+    <plugins>
+      <plugin>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>2.3.2</version>
+        <configuration>
+          <source/>
+          <target/>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+  <dependencies>
+  	<dependency>
+  		<groupId>org.spout</groupId>
+  		<artifactId>spoutapi</artifactId>
+  		<version>dev-SNAPSHOT</version>
+  	</dependency>
+  	<dependency>
+  		<groupId>org.spout</groupId>
+  		<artifactId>vanilla</artifactId>
+  		<version>1.3.0-SNAPSHOT</version>
+  	</dependency>
+  </dependencies>
+</project>

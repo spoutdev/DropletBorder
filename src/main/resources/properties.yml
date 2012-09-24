@@ -1,0 +1,6 @@
+name: DropletBorder
+version: dev-SNAPSHOT
+website: http://spout.org
+main: org.spout.droplet.border.DropletBorder
+platform: SERVER
+reload: true
