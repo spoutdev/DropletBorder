@@ -11,6 +11,7 @@ import org.spout.droplet.border.BorderConfiguration.BorderType;
 public class BorderComponent extends EntityComponent {
 	Transform lastValid;
 	Player player;
+	long tick = 0;
 	
 	@Override
 	public void onAttached() {
@@ -20,6 +21,10 @@ public class BorderComponent extends EntityComponent {
 	
 	@Override
 	public void onTick(float dt) {
+		tick ++;
+		if (tick % 10 != 0) {
+			return;
+		}
 		Vector3 center = (Vector3) BorderConfiguration.getCenter();
 		Point pos = getHolder().getTransform().getPosition();
 		double radius = BorderConfiguration.RADIUS.getDouble();
