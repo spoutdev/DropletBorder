@@ -3,7 +3,6 @@ package org.spout.droplet.border;
 import java.io.File;
 
 import org.spout.api.exception.ConfigurationException;
-import org.spout.api.geo.discrete.Point;
 import org.spout.api.math.Vector3;
 import org.spout.api.util.config.ConfigurationHolder;
 import org.spout.api.util.config.ConfigurationHolderConfiguration;

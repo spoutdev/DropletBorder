@@ -7,7 +7,6 @@ import org.spout.api.command.annotated.Command;
 import org.spout.api.command.annotated.CommandPermissions;
 import org.spout.api.entity.Player;
 import org.spout.api.geo.discrete.Point;
-import org.spout.api.math.Vector3;
 import org.spout.droplet.border.BorderConfiguration;
 import org.spout.droplet.border.BorderConfiguration.BorderType;
 
@@ -35,7 +34,7 @@ public class BorderCommands {
 						Player p = (Player) source;
 						double radius = args.getDouble(1);
 						BorderType type = BorderType.valueOf(args.getString(2).toUpperCase());
-						Point center = p.getTransform().getPosition();
+						Point center = p.getScene().getPosition();
 						BorderConfiguration.setCenter(center);
 						BorderConfiguration.setBorderType(type);
 						BorderConfiguration.RADIUS.setValue(radius);

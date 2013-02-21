@@ -1,7 +1,7 @@
 package org.spout.droplet.border;
 
 import org.spout.api.chat.style.ChatStyle;
-import org.spout.api.component.components.EntityComponent;
+import org.spout.api.component.type.EntityComponent;
 import org.spout.api.entity.Player;
 import org.spout.api.geo.discrete.Point;
 import org.spout.api.geo.discrete.Transform;
@@ -15,8 +15,8 @@ public class BorderComponent extends EntityComponent {
 	
 	@Override
 	public void onAttached() {
-		lastValid = getHolder().getTransform().getTransform();
-		player = (Player) getHolder();
+		lastValid = getOwner().getScene().getTransform();
+		player = (Player) getOwner();
 	}
 	
 	@Override
@@ -26,17 +26,17 @@ public class BorderComponent extends EntityComponent {
 			return;
 		}
 		Vector3 center = (Vector3) BorderConfiguration.getCenter();
-		Point pos = getHolder().getTransform().getPosition();
+		Point pos = getOwner().getScene().getPosition();
 		double radius = BorderConfiguration.RADIUS.getDouble();
 		BorderType type = (BorderType) BorderConfiguration.getBorderType();
 		if (!type.isInBorder(center, pos, radius)) {
 			if (BorderConfiguration.ENABLED.getBoolean()) {
 				player.sendMessage(ChatStyle.DARK_RED, "You shalt not pass!");
-				player.getTransform().setTransform(lastValid);
+				player.getScene().setTransform(lastValid);
 				player.teleport(lastValid.getPosition().add(0, 0.2, 0));
 			}
 		} else {
-			lastValid = player.getTransform().getTransform();
+			lastValid = player.getScene().getTransform();
 		}
 	}
 }
