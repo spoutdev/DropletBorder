@@ -23,8 +23,7 @@
  */
 package org.spout.droplet.border;
 
-import org.spout.api.chat.style.ChatStyle;
-import org.spout.api.component.type.EntityComponent;
+import org.spout.api.component.entity.EntityComponent;
 import org.spout.api.entity.Player;
 import org.spout.api.geo.discrete.Point;
 import org.spout.api.geo.discrete.Transform;
@@ -35,13 +34,13 @@ public class BorderComponent extends EntityComponent {
 	Transform lastValid;
 	Player player;
 	long tick = 0;
-	
+
 	@Override
 	public void onAttached() {
 		lastValid = getOwner().getScene().getTransform();
 		player = (Player) getOwner();
 	}
-	
+
 	@Override
 	public void onTick(float dt) {
 		tick ++;
@@ -54,7 +53,7 @@ public class BorderComponent extends EntityComponent {
 		BorderType type = (BorderType) BorderConfiguration.getBorderType();
 		if (!type.isInBorder(center, pos, radius)) {
 			if (BorderConfiguration.ENABLED.getBoolean()) {
-				player.sendMessage(ChatStyle.DARK_RED, "You shalt not pass!");
+				player.sendMessage('\u00A7' + 'c' + "You shalt not pass!");
 				player.getScene().setTransform(lastValid);
 				player.teleport(lastValid.getPosition().add(0, 0.2, 0));
 			}

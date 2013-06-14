@@ -23,12 +23,12 @@
  */
 package org.spout.droplet.border;
 
-import org.spout.api.chat.style.ChatStyle;
-import org.spout.api.command.CommandContext;
+import org.spout.api.command.CommandArguments;
 import org.spout.api.command.CommandSource;
 import org.spout.api.command.annotated.Command;
-import org.spout.api.command.annotated.CommandPermissions;
+import org.spout.api.command.annotated.Permissible;
 import org.spout.api.entity.Player;
+import org.spout.api.exception.CommandException;
 import org.spout.api.geo.discrete.Point;
 import org.spout.droplet.border.BorderConfiguration;
 import org.spout.droplet.border.BorderConfiguration.BorderType;
@@ -39,18 +39,18 @@ public class BorderCommands {
 	public BorderCommands(DropletBorder plugin) {
 		this.plugin = plugin;
 	}
-	
+
 	@Command(aliases = {"border"}, usage = "enable|disable|set [radius] [square|circle]", desc="controls the border")
-	@CommandPermissions("dropletborder.control")
-	public void commandRoot(CommandContext args, CommandSource source) {
+	@Permissible("dropletborder.control")
+	public void commandRoot(CommandSource source, CommandArguments args) throws CommandException {
 		if (args.length() >= 1) {
 			String mode = args.getString(0);
 			if (mode.equals("enable")) {
 				BorderConfiguration.ENABLED.setValue(true);
-				source.sendMessage(ChatStyle.DARK_GREEN, "Border enabled.");
+				source.sendMessage('\u00A7' + '2' + "Border enabled.");
 			} else if (mode.equals("disable")) {
 				BorderConfiguration.ENABLED.setValue(false);
-				source.sendMessage(ChatStyle.DARK_GREEN, "Border disabled.");
+				source.sendMessage('\u00A7' + '2' + "Border disabled.");
 			} else if (mode.equals("set")) {
 				if (args.length() >= 3) {
 					if (source instanceof Player) {
@@ -61,13 +61,13 @@ public class BorderCommands {
 						BorderConfiguration.setCenter(center);
 						BorderConfiguration.setBorderType(type);
 						BorderConfiguration.RADIUS.setValue(radius);
-						source.sendMessage(ChatStyle.DARK_GREEN, "Border set successfully.");
+						source.sendMessage('\u00A7' + '2' + "Border set successfully.");
 						sendinfo(source);
 					} else {
-						source.sendMessage(ChatStyle.DARK_RED, "This works ingame only.");
+						source.sendMessage('\u00A7' + '4' + "This works ingame only.");
 					}
 				} else {
-					source.sendMessage(ChatStyle.DARK_RED, "Not enough arguments for set (/border set <radius> <square|circle>).");
+					source.sendMessage('\u00A7' + '4' + "Not enough arguments for set (/border set <radius> <square|circle>).");
 				}
 			}
 		} else {
@@ -77,7 +77,7 @@ public class BorderCommands {
 	}
 
 	private void sendinfo(CommandSource source) {
-		source.sendMessage(ChatStyle.YELLOW, "Border: ", ChatStyle.WHITE, (BorderConfiguration.ENABLED.getBoolean() ? "enabled" : "disabled"));
-		source.sendMessage(ChatStyle.YELLOW, "Radius: ", ChatStyle.WHITE, BorderConfiguration.RADIUS.getInt(), ChatStyle.YELLOW, " Type: ", ChatStyle.WHITE, BorderConfiguration.getBorderType().toString().toLowerCase());
+		source.sendMessage('\u00A7' + 'e' + "Border: " + '\u00A7' + 'f' + (BorderConfiguration.ENABLED.getBoolean() ? "enabled" : "disabled"));
+		source.sendMessage('\u00A7' + 'e' + "Radius: "+ '\u00A7' + 'f' +  BorderConfiguration.RADIUS.getInt()+ '\u00A7' + 'e' + " Type: " + '\u00A7' + 'f' + BorderConfiguration.getBorderType().toString().toLowerCase());
 	}
 }
