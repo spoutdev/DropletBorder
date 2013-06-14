@@ -39,8 +39,7 @@ public class BorderConfiguration extends ConfigurationHolderConfiguration {
 	private static final ConfigurationHolder CENTER_Z = new ConfigurationHolder(0d, "center-z");
 	private static Vector3 center = null;
 	private static BorderType borderType = null;
-	
-	
+
 	public static BorderType getBorderType() {
 		if (borderType == null) {
 			borderType = BorderType.valueOf(BORDER_TYPE.getString());
@@ -59,16 +58,16 @@ public class BorderConfiguration extends ConfigurationHolderConfiguration {
 		}
 		return center;
 	}
-	
+
 	public static void setCenter(Vector3 center) {
 		CENTER_X.setValue(center.getX());
 		CENTER_Z.setValue(center.getZ());
 		center = new Vector3(center);
 	}
-	
+
 	public static enum BorderType {
 		CIRCLE, SQUARE;
-		
+
 		public boolean isInBorder(Vector3 center, Vector3 toCheck, double radius) {
 			double dx = center.getX() - toCheck.getX();
 			double dz = center.getZ() - toCheck.getZ();
@@ -81,11 +80,11 @@ public class BorderConfiguration extends ConfigurationHolderConfiguration {
 			return false;
 		}
 	}
-	
+
 	public BorderConfiguration(DropletBorder plugin) {
 		super(new YamlConfiguration(new File(plugin.getDataFolder(), "config.yml")));
 	}
-	
+
 	@Override
 	public void load() {
 		try {

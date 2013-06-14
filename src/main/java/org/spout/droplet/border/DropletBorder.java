@@ -48,18 +48,17 @@ public class DropletBorder extends Plugin implements Listener {
 		config.save();
 		log("DropletBorder disabled");
 	}
-	
+
 	public void log(String text) {
 		log(Level.INFO, text);
 	}
-	
+
 	public void log(Level level, String text) {
 		getLogger().log(level, text);
 	}
-	
+
 	@EventHandler
 	public void onPlayerJoin(PlayerJoinEvent event) {
 		event.getPlayer().add(BorderComponent.class);
 	}
-
 }

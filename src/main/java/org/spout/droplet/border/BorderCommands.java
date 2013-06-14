@@ -30,6 +30,7 @@ import org.spout.api.command.annotated.Permissible;
 import org.spout.api.entity.Player;
 import org.spout.api.exception.CommandException;
 import org.spout.api.geo.discrete.Point;
+
 import org.spout.droplet.border.BorderConfiguration;
 import org.spout.droplet.border.BorderConfiguration.BorderType;
 

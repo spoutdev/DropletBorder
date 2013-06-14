@@ -28,6 +28,7 @@ import org.spout.api.entity.Player;
 import org.spout.api.geo.discrete.Point;
 import org.spout.api.geo.discrete.Transform;
 import org.spout.api.math.Vector3;
+
 import org.spout.droplet.border.BorderConfiguration.BorderType;
 
 public class BorderComponent extends EntityComponent {
