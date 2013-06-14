@@ -1,12 +1,12 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
 	<!-- Project information -->
 	<name>DropletBorder</name>
 	<groupId>org.spout.droplet</groupId>
-	<artifactId>dropletborder</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<artifactId>border</artifactId>
+	<version>0.1</version>
+	<packaging>jar</packaging>
 	<url>http://www.spout.org</url>
 	<inceptionYear>2012</inceptionYear>
 	<description>World border "Droplet" plugin for the Spout platform to demonstrate the usage of map and player limiting using the scheduler.</description>
@@ -14,13 +14,15 @@
 	<!-- Build properties -->
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<currentYear>2012</currentYear>
+		<buildNumber>0</buildNumber><!-- DO NOT TOUCH! -->
+		<platform>SERVER</platform><!-- CLIENT/SERVER/PROXY/ALL -->
+		<reload>true</reload><!-- true/false -->
+		<depends>Vanilla</depends>
 		<spoutVersion>dev-SNAPSHOT</spoutVersion>
-		<vanillaVersion>1.4.2-SNAPSHOT</vanillaVersion>
-		<buildNumber>0</buildNumber>
+		<vanillaVersion>1.5.2-SNAPSHOT</vanillaVersion>
 	</properties>
 
-	<!-- Company information -->
+	<!-- Organization information -->
 	<organization>
 		<name>Spout LLC</name>
 		<url>http://www.spout.org</url>
@@ -30,49 +32,41 @@
 	<licenses>
 		<license>
 			<name>MIT License</name>
-			<url>http://cdn.spout.org/license/mit.txt</url>
+			<url>http://spout.in/mit</url>
 			<distribution>repo</distribution>
 		</license>
 	</licenses>
 
 	<!-- Source code access -->
 	<scm>
-		<developerConnection>scm:git:git@github.com:Droplets/DropletBorder.git</developerConnection>
-		<connection>scm:git:git://github.com/Droplets/DropletBorder.git</connection>
-		<url>https://github.com/Droplets/DropletBorder</url>
+		<developerConnection>scm:git:git@github.com:Droplet/DropletBorder.git</developerConnection>
+		<connection>scm:git:git://github.com/Droplet/DropletBorder.git</connection>
+		<url>https://github.com/Droplet/DropletBorder</url>
 	</scm>
 
-	<!-- Build server -->
+	<!-- Continuous integration -->
 	<ciManagement>
-		<system>jenkins</system>
-		<url>http://build.spout.org/job/DropletBorder</url>
+		<system>travis</system>
+		<url>https://travis-ci.org/Droplet/DropletBorder</url>
 	</ciManagement>
 
-	<!-- Issue tracker -->
+	<!-- Issue management -->
 	<issueManagement>
 		<system>jira</system>
-		<url>http://issues.spout.org/browse/Droplet</url>
+		<url>https://spoutdev.atlassian.net/browse/DROPLET</url>
 	</issueManagement>
 
 	<!-- Dependency repositories -->
 	<repositories>
 		<repository>
 			<id>spout-repo</id>
-			<url>http://repo.spout.org</url>
+			<url>http://nexus.spout.org/content/groups/public/</url>
 			<snapshots>
 				<enabled>true</enabled>
 				<updatePolicy>always</updatePolicy>
 			</snapshots>
 		</repository>
 	</repositories>
-
-	<!-- Build plugin repositories -->
-	<pluginRepositories>
-		<pluginRepository>
-			<id>spout-repo</id>
-			<url>http://repo.spout.org</url>
-		</pluginRepository>
-	</pluginRepositories>
 
 	<!-- Project dependencies -->
 	<dependencies>
@@ -95,20 +89,22 @@
 	<build>
 		<defaultGoal>clean package</defaultGoal>
 
-		<!-- Static resources -->
+		<!-- Resources to include -->
 		<resources>
+			<!-- Static resources -->
 			<resource>
-				<targetPath>.</targetPath>
 				<filtering>false</filtering>
-				<directory>${basedir}</directory>
+				<directory>${project.basedir}</directory>
+				<targetPath>.</targetPath>
 				<includes>
 					<include>LICENSE.txt</include>
 				</includes>
 			</resource>
+			<!-- Filtered resources -->
 			<resource>
-				<targetPath>.</targetPath>
 				<filtering>true</filtering>
-				<directory>${basedir}/src/main/resources</directory>
+				<directory>${project.basedir}/src/main/resources</directory>
+				<targetPath>.</targetPath>
 				<includes>
 					<include>*.yml</include>
 				</includes>
@@ -128,12 +124,13 @@
 							<properties>
 								<name>${project.name}</name>
 								<url>${project.organization.url}</url>
-								<copyright>Copyright (c) ${currentYear}, ${project.organization.name}</copyright>
+								<inceptionYear>${project.inceptionYear}</inceptionYear>
+								<organization>${project.organization.name}</organization>
 							</properties>
 							<quiet>true</quiet>
 							<encoding>UTF-8</encoding>
 							<strictCheck>true</strictCheck>
-							<header>${project.basedir}/HEADER.txt</header>
+							<header>HEADER.txt</header>
 							<mapping>
 								<java>SLASHSTAR_STYLE</java>
 							</mapping>
@@ -153,29 +150,11 @@
 					</execution>
 				</executions>
 			</plugin>
-			<!-- Release version plugin -->
-			<plugin>
-				<groupId>com.sourcesense.maven</groupId>
-				<artifactId>maven-nosnapshot-plugin</artifactId>
-				<version>0.0.7</version>
-				<executions>
-					<execution>
-						<configuration>
-							<version>${project.version}</version>
-							<propertyName>releaseVersion</propertyName>
-						</configuration>
-						<phase>initialize</phase>
-						<goals>
-							<goal>strip</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
 			<!-- Source compiler plugin -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<version>2.5.1</version>
+				<version>3.1</version>
 				<configuration>
 					<source>1.6</source>
 					<target>1.6</target>
@@ -188,37 +167,5 @@
 				</configuration>
 			</plugin>
 		</plugins>
-
-		<!-- Plugin management -->
-		<pluginManagement>
-			<plugins>
-				<!-- Eclipse exclusions -->
-				<plugin>
-					<groupId>org.eclipse.m2e</groupId>
-					<artifactId>lifecycle-mapping</artifactId>
-					<version>1.0.0</version>
-					<configuration>
-						<lifecycleMappingMetadata>
-							<pluginExecutions>
-								<pluginExecution>
-									<pluginExecutionFilter>
-										<groupId>com.sourcesense.maven</groupId>
-										<artifactId>maven-nosnapshot-plugin</artifactId>
-										<versionRange>[0.0.7,)</versionRange>
-										<goals>
-											<goal>strip</goal>
-										</goals>
-									</pluginExecutionFilter>
-									<action>
-										<ignore/>
-									</action>
-								</pluginExecution>
-							</pluginExecutions>
-						</lifecycleMappingMetadata>
-					</configuration>
-				</plugin>
-			</plugins>
-		</pluginManagement>
 	</build>
-
 </project>

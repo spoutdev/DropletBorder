@@ -1,10 +1,10 @@
-name: DropletBorder
-version: ${releaseVersion} b${buildNumber}
+name: ${project.name}
+version: ${project.version}-b${buildNumber}
+description: ${project.description}
+website: ${project.url}
+author: ${project.organization.name}
 
-description: World border "Droplet" plugin for the Spout platform to demonstrate the usage of map and player limiting using the scheduler.
-author: Spout LLC
-website: http://www.spout.org
-
-main: org.spout.droplet.border.DropletBorder
-platform: SERVER
-reload: true
+main: ${project.groupId}.${project.artifactId}.${project.name}
+platform: ${platform}
+reload: ${reload}
+depends: [${depends}]
